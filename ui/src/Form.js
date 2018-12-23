@@ -1,4 +1,5 @@
 import React from 'react';
+import Calculator from './Calculator.js';
 import './App.css';
 
 class Form extends React.Component {
@@ -15,7 +16,7 @@ class Form extends React.Component {
     }
 
     handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.value);
+        this.setState({result: Calculator({t : this.state.moment, lambda : this.state.intensity})});
         event.preventDefault();
     }
 
@@ -40,7 +41,7 @@ class Form extends React.Component {
                         <input type="text" onChange={event => this.handleMomentChange(event)}/>
                     </div>
                     <div className="section-item">
-                        <label>Вероятность работы системы = {this.state.intensity}</label>
+                        <label>Вероятность работы системы = {this.state.result}</label>
                         <input type="submit" value="Рассчитать" />
                     </div>
                 </div>
