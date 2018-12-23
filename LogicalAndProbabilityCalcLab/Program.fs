@@ -1,19 +1,24 @@
-﻿open System
+﻿module Main
+
 open System
-
-let pi (lambda : Double) (t : Double)  = - lambda * t |> Math.Exp
-
-let qi lambda t = 1.0 - (pi lambda t)
-
-let elementNonFaultProbability lambda t = 1.0 - (qi lambda t) * 3.0
-
-let fullSystemNonFaultProbability lambda t = (pi lambda t) * (Math.Pow ((elementNonFaultProbability lambda t), (8.0)))
+open FaultProbability
+open NModularRedundancy
 
 let calcForList lambda =
-    let ts = [1.0; 10.0; 100.0; 1_000.0; 10_000.0; 100_000.0; 1_000_000.0]
-    let fullSystemNonFaultProbabilityForLambda t = fullSystemNonFaultProbability lambda t
+    let ts = [100.0; 1_000.0; 5_000.0; 10_000.0;]
+    let fullSystemNonFaultProbabilityForLambda t = systemNonFaultProbability lambda t
     ts |> List.map (fun x -> x, (fullSystemNonFaultProbabilityForLambda x))
        |> Map
+       
+let calcNModularRedundancyResultForList lambda pTVoter =
+    let ts = [100.0; 1_000.0; 5_000.0; 10_000.0;]
+    let redundancySystemNonFaultProbabilityForLambda t = systemNonFaultProbabilityWithRedundancy lambda t pTVoter
+    ts |> List.map (fun x -> x, (redundancySystemNonFaultProbabilityForLambda x))
+       |> Map
+
+let printResult map =
+    map |> Map.iter (fun k v -> printfn "t = %f P(t) = %f" k v)
+        |> ignore
 
 [<EntryPoint>]
 let main argv =
@@ -25,14 +30,17 @@ let main argv =
         printfn "Wrong value entered"
         0
     else
-    
+
     // init data
     let lambda = Math.Pow(10.0, value)
+    let pTVoter = Math.Pow(10.0, -7.)
     
     let results = calcForList lambda
     
+    let nModularRedundancyResult = calcNModularRedundancyResultForList lambda pTVoter
+    
     // print result
-    results
-    |> Map.iter (fun k v -> printfn "t = %f P(t) = %f" k v)
-    |> ignore
+    printResult results
+    printfn ""
+    printResult nModularRedundancyResult
     0

@@ -6,7 +6,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Compile Include="Program.fs"/>
+        <Compile Include="FaultProbability.fs" />
+        <Compile Include="MajorityVoting.fs" />
+        <Compile Include="Program.fs" />
     </ItemGroup>
 
 </Project>
