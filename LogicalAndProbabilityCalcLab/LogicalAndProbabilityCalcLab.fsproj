@@ -8,6 +8,7 @@
     <ItemGroup>
         <Compile Include="FaultProbability.fs" />
         <Compile Include="MajorityVoting.fs" />
+        <Compile Include="PairAndSpair.fs" />
         <Compile Include="Program.fs" />
     </ItemGroup>
 
