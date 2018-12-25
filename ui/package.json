@@ -21,5 +21,9 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "react-burger-menu": "^2.5.4",
+    "react-router": "^4.3.1"
+  }
 }

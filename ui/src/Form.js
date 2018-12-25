@@ -41,7 +41,7 @@ class Form extends React.Component {
                         <input type="text" onChange={event => this.handleMomentChange(event)}/>
                     </div>
                     <div className="section-item">
-                        <label>Вероятность работы системы = {this.state.result}</label>
+                        <label>Вероятность работы системы = {this.state.result.toFixed(7)}</label>
                         <input type="submit" value="Рассчитать" />
                     </div>
                 </div>
